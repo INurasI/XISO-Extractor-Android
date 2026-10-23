@@ -27,6 +27,9 @@ jobs:
       - uses: android-actions/setup-android@v3
       - name: Install NDK
         run: sdkmanager "ndk;27.2.12479018"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
       - uses: dtolnay/rust-toolchain@stable
         with:
           targets: aarch64-linux-android
@@ -35,7 +38,8 @@ jobs:
         run: |
           NDK="$ANDROID_SDK_ROOT/ndk/27.2.12479018"
           TOOLCHAIN="$NDK/toolchains/llvm/prebuilt/linux-x86_64/bin"
-          echo "CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=$TOOLCHAIN/aarch64-linux-android24-clang" >> "$GITHUB_ENV"
+          export CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER="$TOOLCHAIN/aarch64-linux-android23-clang"
+          echo "CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER=$CARGO_TARGET_AARCH64_LINUX_ANDROID_LINKER" >> "$GITHUB_ENV"
           cargo build --release --target aarch64-linux-android -p xdvdfs-cli
       - name: Embed engine
         run: |
