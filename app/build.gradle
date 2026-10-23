@@ -1,0 +1,13 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.base64e.xisoextractor'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.base64e.xisoextractor'
+        minSdk 23
+        targetSdk 28
+        versionCode 1
+        versionName '1.0'
+    }
+}
